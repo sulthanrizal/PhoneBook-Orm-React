@@ -1,0 +1,131 @@
+/* to TodoBox */
+
+
+
+.container-todobox {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin: 10px 10% 0px 10%;
+    font-family: arial;
+    /* background-color: aquamarine; */
+}
+
+.header {
+    background-color: #f8f8f8;
+    padding: 2px 0px 2px 0px;
+    text-align: center;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.body {
+    border-top: 1px solid #ddd;
+    padding: 10px;
+    background-color: white;
+}
+
+.footer {
+    background-color: #f8f8f8;
+    padding: 20px 10px 20px 10px;
+    border-top: 1px solid #ddd;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+/* to TodoForm */
+form {
+    display: flex;
+    padding: 10px;
+}
+
+.form-input {
+    display: flex;
+    width: 100%;
+}
+
+.form-input input {
+    width: 100%;
+    margin-right: 10px;
+    padding: 7.5px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+
+}
+
+.form-submit button {
+    padding: 7.5px;
+    border: 1px solid #0069FF;
+    background-color: #0069FF;
+    color: white;
+    border-radius: 5px;
+}
+
+/* if not mode edit */
+
+.item-container {
+    display: flex;
+    width: 90.9%;
+    border: 1px solid #ddd;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    background-color: white;
+}
+
+.item-first {
+    display: flex;
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: -5px;
+    margin-left: 10px;
+}
+
+.item-second {
+    display: flex;
+    width: 100%;
+    justify-content: right;
+    margin-right: 10px;
+}
+
+.item-second button {
+    background-color: #D93A41;
+    border: 1px solid #D93A41;
+    border-radius: 5px;
+    color: white;
+    padding: 0px 10px 0px 10px;
+    margin: 5px 0px 5px 0px;
+}
+
+/* if mode edit */
+
+.item-container form {
+    width: 100%;
+}
+
+.item-first-edit {
+    display: flex;
+}
+
+.item-first-edit input {
+    width: 800px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 5px 5px 5px 10px;
+}
+
+.item-second-edit button:first-child {
+    margin: 0px 5px 0px 10px;
+    padding: 5px;
+    background-color: #25874E;
+    border-radius: 5px;
+    border: 1px solid #25874E;
+    color: white;
+}
+
+.item-second-edit button:last-child {
+    padding: 5px;
+    background-color: #FEC200;
+    border-radius: 5px;
+    border: 1px solid #FEC200;
+    color: black;
+}
