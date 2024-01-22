@@ -24,7 +24,6 @@ export default function FormAdd({ user, setUser, item, setItem, sort, setSort })
         navigate('/')
     }
 
-
     return (
         <form onSubmit={addData}>
             <div className="container-form-add">
