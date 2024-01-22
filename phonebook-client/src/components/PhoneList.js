@@ -4,7 +4,6 @@ import PhoneItem from "./PhoneItem"
 
 
 export default function PhoneList({ item, setItem, Delete, UpdateData }) {
-
     return (
         <div className="phonelist" >
             {item.map((user) => {
