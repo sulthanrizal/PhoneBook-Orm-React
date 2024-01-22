@@ -14,7 +14,8 @@ export default function PhoneBox({
     isLoading,
     setIsLoading,
     page,
-    setPage
+    setPage,
+    UpdateData
 }) {
     return (
         <div className="container">
@@ -22,7 +23,7 @@ export default function PhoneBox({
                 <FormBar keyword={keyword} setKeyword={setKeyword} sort={sort} setSort={setSort} />
             </div>
             <div className="body">
-                <PhoneList Delete={Delete} isLoading={isLoading} setIsLoading={setIsLoading} page={page} setPage={setPage} item={item} setItem={setItem} />
+                <PhoneList Delete={Delete} UpdateData={UpdateData} isLoading={isLoading} setIsLoading={setIsLoading} page={page} setPage={setPage} item={item} setItem={setItem} />
             </div>
         </div>
     )
