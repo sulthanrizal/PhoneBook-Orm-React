@@ -1,5 +1,4 @@
 .container {
-  border: 1px solid #ddd;
   margin: 10px 10px 0px 10px;
 }
 
@@ -58,13 +57,18 @@
   background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' class='bi bi-search' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'%3E%3C/path%3E%3C/svg%3E") no-repeat 13px center;
 }
 
-/* create css to add */
+/* create css to phonelist */
 
-.container-form-add {
-  border: 1px solid black;
+.phonelist {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
-.container-form-add form {
+
+/* create css to add */
+
+.header-add {
   padding: 50px;
   display: flex;
   flex-direction: column;
@@ -110,9 +114,10 @@
 /* create css to phone item */
 
 .container-item {
-  border: 1px solid #ddd;
   display: flex;
   justify-content: center;
+  width: 18%;
+  margin-left: 20px;
 }
 
 .container-item-content {
@@ -120,27 +125,41 @@
   border: 1px solid rgb(90, 89, 89);
   border-radius: 5px;
   background-color: #CCCCCC;
-  width: 210px;
+  width: 250px;
+  margin-bottom: 10px;
 }
 
-.btn-item-img button {
-  border: 1px solid #CCCCCC;
+
+
+.btn-item-img a img {
+  margin: 5px 10px 2px 5px;
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
   background-color: #CCCCCC;
-  border-radius: 5px;
-}
-
-.btn-item-img button img {
-  height: 110px;
-  width: 70px;
-  border-radius: 20px;
 }
 
 .btn-item button:first-child {
   background-color: #CCCCCC;
   border: 1px solid #CCCCCC;
+  margin-left: -5px;
 }
 
 .btn-item button:last-child {
   background-color: #CCCCCC;
   border: 1px solid #CCCCCC;
+  margin-left: -5px;
+}
+
+
+.edit-item-identity input {
+  width: 93%;
+  height: 27px;
+  border-radius: 3px;
+  margin-top: 10px;
+  border: 1px solid rgb(90, 89, 89);
+}
+
+.edit-item-identity input:last-of-type {
+  margin-top: 5px;
 }
