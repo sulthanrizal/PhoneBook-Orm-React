@@ -1,14 +1,18 @@
-import { BrowserRouter as Router, Routes, Route, Outlet } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Outlet, Link } from 'react-router-dom';
 import './App.css';
 import PhoneBox from './components/PhoneBox';
 import FormAdd from './components/FormAdd';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import FormUpdateAvatar from './components/FormUpdateAvatar';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowDown } from '@fortawesome/free-solid-svg-icons';
 
 
 function App() {
   const [user, setUser] = useState({ name: '', phone: '' })
   const [keyword, setKeyword] = useState('')
+  const [avatar, setAvatar] = useState(null)
   const [sort, setSort] = useState('asc')
   const [isLoading, setIsloading] = useState(false)
   const [item, setItem] = useState([])
@@ -28,7 +32,6 @@ function App() {
           }
         })
         const { phonebook, pages } = response.data
-        console.log(phonebook, pages)
 
         if (phonebook) {
           setItem(phonebook)
@@ -75,8 +78,30 @@ function App() {
       <Router>
         <Routes>
           <Route path='/' element={<Layout />} />
-          <Route index element={<PhoneBox Delete={DeleteItem} UpdateData={updateData} page={page} setPage={setPage} sort={sort} setSort={setSort} keyword={keyword} setKeyword={setKeyword} user={user} setUser={setUser} item={item} setItem={setItem} isLoading={isLoading} setIsloading={setIsloading} />} />
-          <Route path="/add" element={<FormAdd user={user} setUser={setUser} item={item} setItem={setItem} sort={sort} setSort={setSort} />} />
+          <Route index element={<PhoneBox
+            Delete={DeleteItem}
+            UpdateData={updateData}
+            page={page}
+            setPage={setPage}
+            sort={sort}
+            setSort={setSort}
+            keyword={keyword}
+            setKeyword={setKeyword}
+            user={user}
+            setUser={setUser}
+            item={item}
+            setItem={setItem}
+            isLoading={isLoading}
+            setIsloading={setIsloading} />} />
+          <Route path="/add" element={<FormAdd
+            user={user}
+            setUser={setUser}
+            item={item}
+            setItem={setItem}
+            sort={sort}
+            setSort={setSort} />} />
+          <Route path='/:id/avatar' element={<FormUpdateAvatar avatar={avatar} setAvatar={setAvatar} item={item} user={user} />} />
+          <Route path='*' element={<NoMatch />} />
         </Routes>
       </Router>
     </>
@@ -87,6 +112,20 @@ function Layout() {
   return (
     <Outlet />
   )
+}
+
+function NoMatch() {
+  return (
+    <div className='nomatch'>
+      <h2>Nothing to see here!</h2>
+      <h1>
+        <FontAwesomeIcon icon={faArrowDown} />
+      </h1>
+      <p>
+        <Link to="/">Go to the home page</Link>
+      </p>
+    </div>
+  );
 }
 
 export default App;
