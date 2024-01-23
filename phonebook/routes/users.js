@@ -61,6 +61,23 @@ router.put('/phonebook/:id', async function (req, res) {
     res.status(500).json({ Error })
   }
 })
+
+
+router.get('/phonebook/:id', async (req, res) => {
+  try {
+    const id = req.params.id
+    const response = await User.findOne({
+
+      where: {
+        id
+      }
+    })
+    res.status(200).json(response)
+  } catch (error) {
+    res.status(500).json({ error })
+  }
+})
+
 router.put('/phonebook/:id/avatar', async function (req, res) {
   const id = req.params.id
   let avatar
@@ -80,9 +97,7 @@ router.put('/phonebook/:id/avatar', async function (req, res) {
 
     try {
       const profile = await User.findOne({
-        where: {
-          id
-        }
+        where: { id }
       });
       if (profile.avatar) {
         const oldFile = path.join(__dirname, '..', 'public', 'images', profile.avatar)
