@@ -9,7 +9,7 @@ const { Op } = require("sequelize")
 /* GET users listing. */
 router.get('/phonebook', async function (req, res, next) {
   try {
-    const { page = 1, limit = 10, keyword = "", sort = 'ASC' } = req.query
+    const { page = 1, limit = 30, keyword = "", sort = 'ASC' } = req.query
     const { count, rows } = await User.findAndCountAll({
       where: {
         [Op.or]: [
@@ -92,9 +92,9 @@ router.put('/phonebook/:id/avatar', async function (req, res) {
   uploadPath = path.join(__dirname, '..', 'public', 'images', fileName);
 
   avatar.mv(uploadPath, async function (err) {
+
     if (err)
       return res.status(500).send(err);
-
     try {
       const profile = await User.findOne({
         where: { id }
@@ -151,5 +151,6 @@ router.delete('/phonebook/:id', async function (req, res) {
     res.status(500).json(error.message)
   }
 })
+
 
 module.exports = router;
