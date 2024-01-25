@@ -1,23 +1,20 @@
-import { faArrowRotateLeft, faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
+import { faArrowRotateLeft, faFloppyDisk, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
-import { useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 
-export default function FormUpdateAvatar({ avatar, setAvatar }) {
-    console.log(avatar, 'avatar')
+export default function FormUpdateAvatar({ UpdateAvatar, avatar, setAvatar }) {
+
+    const navigate = useNavigate()
     const { id } = useParams()
     useEffect(() => {
         const fecthData = async () => {
             try {
                 const response = await axios.get(`http://localhost:3001/api/phonebook/${id}`)
                 const avatar = response.data.avatar
-
-                console.log(response.data)
-
                 setAvatar(avatar)
-                console.log(response.data)
             } catch (error) {
                 console.log(error, 'ini eror')
             }
@@ -25,36 +22,54 @@ export default function FormUpdateAvatar({ avatar, setAvatar }) {
         fecthData()
     }, [id])
 
+    const [selectImages, setSelectedImage] = useState()
+
+    const imageChange = (e) => {
+        if (e.target.files && e.target.files.length > 0) {
+            setSelectedImage(e.target.files[0]);
+            setAvatar(e.target.files[0])
+        }
+    };
+
+    const submitAvatar = (event) => {
+        event.preventDefault()
+        UpdateAvatar(id, avatar)
+        navigate('/')
+    }
+
 
     return (
         <div className="container-avatar">
             <div className="header-avatar">
                 <h1>Change Avatar</h1>
             </div>
-            <div className="body-avatar">
-                <form>
+            <form onSubmit={submitAvatar}>
+                <div className="body-avatar">
                     <div className="img-avatar">
                         <label htmlFor="avatar">Avatar</label>
-                        <input type="file" name="avatar" id="avatar" onChange={(e) => {
-                            setAvatar(e.target.files[0])
-                        }} />
+                        <input type="file" name="avatar" id="avatar" onChange={imageChange} />
                     </div>
                     <div className="priview">
                         <label>Priview</label>
-                        <img src={"http://localhost:3001/images/" + (avatar !== null ? `${avatar}` : './default.png')} />
+                        {(selectImages ? (
+                            <img src={URL.createObjectURL(selectImages)} />
+                        ) :
+                            <img src={"http://localhost:3001/images/" + (avatar !== null ? `${avatar}` : 'user-tie-solid.svg')} />
+                        )}
                     </div>
-                </form>
-            </div>
-            <div className="footer-avatar">
-                <button type="submit">
-                    <FontAwesomeIcon icon={faFloppyDisk} />
-                </button>
-                <Link to={'/'}>
-                    <button>
-                        <FontAwesomeIcon icon={faArrowRotateLeft} />
+
+                </div>
+                <div className="footer-avatar">
+                    <button type="submit">
+                        <FontAwesomeIcon icon={faFloppyDisk} />
                     </button>
-                </Link>
-            </div>
+                    <Link to={'/'}>
+                        <button>
+                            <FontAwesomeIcon icon={faArrowRotateLeft} />
+                        </button>
+                    </Link>
+                </div>
+            </form>
         </div >
     )
 }
