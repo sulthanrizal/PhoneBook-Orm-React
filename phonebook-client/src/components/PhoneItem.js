@@ -32,7 +32,7 @@ export default function PhoneItem({ user, Delete, UpdateData }) {
                     <div className="header-item">
                         <div className="btn-item-img">
                             <Link to={`/${user.id}/avatar`}>
-                                <img src={"http://localhost:3001/images/" + (user.avatar == null ? './default.png' : `${user.avatar}`)} />
+                                <img src={"http://localhost:3001/images/" + (user.avatar == null ? 'user-tie-solid.svg' : `${user.avatar}`)} />
                             </Link>
                         </div>
                     </div>
@@ -60,7 +60,7 @@ export default function PhoneItem({ user, Delete, UpdateData }) {
                     <div className="header-item">
                         <div className="btn-item-img">
                             <Link to={`/${user.id}/avatar`}>
-                                <img src={"http://localhost:3001/images/" + (user.avatar == null ? `./default.png` : `${user.avatar}`)} />
+                                <img src={"http://localhost:3001/images/" + (user.avatar == null ? `user-tie-solid.svg` : `${user.avatar}`)} />
                             </Link>
                         </div>
                     </div>
