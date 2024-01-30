@@ -29,6 +29,7 @@ function App() {
             sort: sort
           }
         })
+        console.log(response)
         const { phonebook, pages } = response.data
         if (phonebook) {
           setItem(phonebook)
@@ -90,37 +91,6 @@ function App() {
       console.log(error, 'eror')
     })
   }
-
-  // const handleScrollPagination = async () => {
-  //   if (window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight && !isLoading) {
-  //     try {
-  //       if (page < totalPages) {
-  //         setIsLoading(true)
-  //         const newPage = page + 1
-  //         setPage(newPage)
-  //         const newData = await axios.get('http://localhost:3001/api/phonebook', {
-  //           params: {
-  //             page: newPage
-  //           }
-  //         })
-  //         setItem(prevItem => [...prevItem, ...newData.data.phonebook])
-  //       } else {
-  //         setIsLoading(false)
-  //       }
-  //     } catch (error) {
-  //       console.log(error, 'eror')
-  //     } finally {
-  //       setIsLoading(false)
-  //     }
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   window.addEventListener('scroll', handleScrollPagination)
-  //   return () => {
-  //     window.removeEventListener('scroll', handleScrollPagination)
-  //   }
-  // }, [totalPages], page)
 
   const handleScroll = async () => {
     if (window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight && !isLoading) {
