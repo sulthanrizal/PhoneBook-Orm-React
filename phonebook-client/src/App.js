@@ -20,45 +20,48 @@ function App() {
   const [totalPages, setTotalPages] = useState(1)
   const [page, setPage] = useState(1)
 
-  useEffect(() => {
-    const readData = async () => {
-      try {
-        const response = await axios.get('http://localhost:3001/api/phonebook', {
-          params: {
-            keyword: keyword,
-            sort: sort
-          }
-        })
-        console.log(response)
-        const { phonebook, pages } = response.data
-        if (phonebook) {
-          setItem(phonebook)
-          setTotalPages(pages)
+  const readData = async () => {
+    try {
+      const response = await axios.get('http://localhost:3001/api/phonebook', {
+        params: {
+          keyword,
+          sort,
+          page,
+          limit: 30
         }
-        return
-      } catch (error) {
-        throw error
+      })
+      console.log(sort, 'ini sort', page, 'ini page')
+      const { phonebook, pages } = await response.data
+      if (phonebook) {
+        setItem(phonebook)
+        setTotalPages(pages)
       }
-      finally {
-        setIsLoading(false)
-      }
+      return
+    } catch (error) {
+      throw error
     }
+    finally {
+      setIsLoading(false)
+    }
+  }
+
+  useEffect(() => {
     readData()
   }, [keyword, sort])
+  console.log(keyword, sort)
 
   const updateData = (id, { name, phone }) => {
     axios.put(`http://localhost:3001/api/phonebook/${id}`, { name, phone }).then((response) => {
-      setItem((prevData) => {
-        return [
-          ...prevData.filter(data => data.id !== response.data.id),
-          {
-            id: response.data.id,
-            name: response.data.name,
-            phone: response.data.phone,
-            avatar: response.data.avatar
-          }
-        ]
-      })
+      setItem((prevData) => [
+        ...prevData.slice(0, prevData.findIndex(data => data.id === response.data.id)),
+        {
+          id: response.data.id,
+          name: response.data.name,
+          phone: response.data.phone,
+          avatar: response.data.avatar
+        },
+        ...prevData.slice(prevData.findIndex(data => data.id === response.data.id) + 1)
+      ]);
     }).catch((error) => {
       window.alert(error, 'your cant update')
     })
@@ -76,24 +79,25 @@ function App() {
         "Content-Type": "multipart/form-data"
       }
     }).then((response) => {
-      setItem((prevData) => {
-        return [
-          ...prevData.filter(data => data.id !== response.data.id),
-          {
-            id: response.data.id,
-            name: response.data.name,
-            phone: response.data.phone,
-            avatar: response.data.avatar,
-          }
-        ]
-      })
+      setItem((prevData) => [
+        ...prevData.slice(0, prevData.findIndex(data => data.id === response.data.id)),
+        {
+          id: response.data.id,
+          name: response.data.name,
+          phone: response.data.phone,
+          avatar: response.data.avatar,
+        },
+        ...prevData.slice(prevData.findIndex(data => data.id === response.data.id) + 1)
+      ])
     }).catch((error) => {
       console.log(error, 'eror')
     })
   }
 
   const handleScroll = async () => {
+    console.log('ke scroll')
     if (window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight && !isLoading) {
+      console.log('jalan')
       try {
         if (page < totalPages) {
           setIsLoading(true)
@@ -101,9 +105,12 @@ function App() {
           setPage(newPage);
           const dataBaru = await axios.get(`http://localhost:3001/api/phonebook`, {
             params: {
-              page: newPage
+              page: newPage,
+              sort: sort,
+              limit: 30,
             }
           })
+          console.log(sort)
           setItem(prevItem => [...prevItem, ...dataBaru.data.phonebook])
         }
         else {
@@ -123,7 +130,8 @@ function App() {
     return () => {
       window.removeEventListener('scroll', handleScroll)
     }
-  }, [totalPages, page])
+  }, [totalPages, sort, page])
+  console.log(totalPages, sort, page)
 
 
   return (
