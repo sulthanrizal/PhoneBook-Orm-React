@@ -8,16 +8,14 @@ export default function FormAdd({ user, setUser, item, setItem, sort, setSort })
         axios.post('http://localhost:3001/api/phonebook', {
             ...user,
         }).then((response) => {
-            setItem((item) => {
-                return [
-                    ...item.filter(data => data.id !== response.data.id),
-                    {
-                        id: response.data.id,
-                        name: response.data.name,
-                        phone: response.data.phone
-                    }
-                ]
-            })
+            setItem((item) => [
+                {
+                    id: response.data.id,
+                    name: response.data.name,
+                    phone: response.data.phone
+                },
+                ...item.filter(data => data.id !== response.data.id)
+            ])
         }).catch((err) => {
             throw err
         })
