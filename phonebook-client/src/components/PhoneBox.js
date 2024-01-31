@@ -21,7 +21,7 @@ export default function PhoneBox({
     return (
         <div className="container">
             <div className="header">
-                <FormBar keyword={keyword} setKeyword={setKeyword} sort={sort} setSort={setSort} />
+                <FormBar keyword={keyword} setKeyword={setKeyword} sort={sort} setSort={setSort} setPage={setPage} />
             </div>
             <div className="body">
                 <PhoneList Delete={Delete} UpdateData={UpdateData} isLoading={isLoading} setIsLoading={setIsLoading} page={page} setPage={setPage} item={item} setItem={setItem} />
