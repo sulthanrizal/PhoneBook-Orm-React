@@ -30,7 +30,6 @@ function App() {
           limit: 30
         }
       })
-      console.log(sort, 'ini sort', page, 'ini page')
       const { phonebook, pages } = await response.data
       if (phonebook) {
         setItem(phonebook)
@@ -48,7 +47,6 @@ function App() {
   useEffect(() => {
     readData()
   }, [keyword, sort])
-  console.log(keyword, sort)
 
   const updateData = (id, { name, phone }) => {
     axios.put(`http://localhost:3001/api/phonebook/${id}`, { name, phone }).then((response) => {
@@ -95,9 +93,7 @@ function App() {
   }
 
   const handleScroll = async () => {
-    console.log('ke scroll')
     if (window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight && !isLoading) {
-      console.log('jalan')
       try {
         if (page < totalPages) {
           setIsLoading(true)
@@ -108,9 +104,9 @@ function App() {
               page: newPage,
               sort: sort,
               limit: 30,
+              keyword: keyword
             }
           })
-          console.log(sort)
           setItem(prevItem => [...prevItem, ...dataBaru.data.phonebook])
         }
         else {
@@ -130,8 +126,7 @@ function App() {
     return () => {
       window.removeEventListener('scroll', handleScroll)
     }
-  }, [totalPages, sort, page])
-  console.log(totalPages, sort, page)
+  }, [totalPages, keyword, sort, page])
 
 
   return (
