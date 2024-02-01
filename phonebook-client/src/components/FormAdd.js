@@ -2,7 +2,6 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function FormAdd({ user, setUser, item, setItem, sort, setSort }) {
-
     let navigate = useNavigate()
     const addData = () => {
         axios.post('http://localhost:3001/api/phonebook', {
@@ -21,7 +20,6 @@ export default function FormAdd({ user, setUser, item, setItem, sort, setSort })
         })
         navigate('/')
     }
-
     return (
         <form onSubmit={addData}>
             <div className="container-form-add">
